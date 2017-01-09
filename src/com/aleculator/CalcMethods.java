@@ -2,21 +2,21 @@ package com.aleculator;
 
 import java.text.DecimalFormat;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 public class CalcMethods {
 
-	public double getOG() {
+	public double getOG(String textOG) {
 		
-		String textOG = JOptionPane.showInputDialog(null, "Enter the OG:", "Original Specific Gravity", JOptionPane.QUESTION_MESSAGE);
+		//String textOG = JOptionPane.showInputDialog(null, "Enter the OG:", "Original Specific Gravity", JOptionPane.QUESTION_MESSAGE);
 		double myOG = Double.parseDouble(textOG);
 		return myOG;
 		
 	}
 	
-	public double getFG() {
+	public double getFG(String textFG) {
 		
-		String textFG = JOptionPane.showInputDialog(null, "Enter the FG:", "Final Specific Gravity", JOptionPane.QUESTION_MESSAGE);
+		//String textFG = JOptionPane.showInputDialog(null, "Enter the FG:", "Final Specific Gravity", JOptionPane.QUESTION_MESSAGE);
 		double myFG = Double.parseDouble(textFG);
 		return myFG;
 		
