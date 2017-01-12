@@ -33,8 +33,11 @@ public class AleFrame extends JFrame implements ActionListener {
 	//****************************************************************
 	JMenuBar mainBar = new JMenuBar();
 	JMenu file = new JMenu("File");
-	JMenu otherCalc = new JMenu("Calculations");
-	JMenuItem exit = new JMenuItem("Leave this place!");
+	JMenu otherCalc = new JMenu("Other Helpful Calculations");
+	JMenuItem about = new JMenuItem("About");
+	JMenuItem exit = new JMenuItem("Leave this place - now!");
+	JMenuItem otherCalcItems = new JMenuItem("Coming Soon!");
+	
 	//****************************************************************
 	public AleFrame()
 	
@@ -61,11 +64,16 @@ public class AleFrame extends JFrame implements ActionListener {
 		//****************************************************************		
 		//Setting up a GridBagLayout...
 		setLayout(new GridBagLayout());
+		
+		//****************************************************************
 		//Set up Menu Bar...
 		setJMenuBar(mainBar);
 		mainBar.add(file);
 		mainBar.add(otherCalc);
+		file.add(about);
 		file.add(exit);
+		otherCalc.add(otherCalcItems);
+		
 		//****************************************************************
 		//Set constraints...
 		GridBagConstraints c = new GridBagConstraints();
@@ -108,8 +116,29 @@ public class AleFrame extends JFrame implements ActionListener {
 		setIconImage(mug.getImage());
 		pressSubmit.addActionListener(this);
 		
+		//****************************************************************
+		//Set menu action listeners...
+		exit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent exitEvent) {
+	            System.exit(0);
+	        }
+		});
+		
+		otherCalcItems.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent otherCalcEvent){
+				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\n", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		about.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent aboutEvent){
+				JOptionPane.showMessageDialog(null, "Copyright (c) 2017 Dylan Wayne Foster\nHi! I'm Dylan. I live and work in North Carolina.\nI am a 2011 Summa Cum Laude Graduate of Belmont Abbey College in beautiful Belmont, NC.\nThanks for checking out my work!\n", "Your Friendly Neighborhood Java Programmer", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 	}
+	
 	//****************************************************************
+	
 	//Event Handler...
 	@Override
 	public void actionPerformed(ActionEvent submissionEvent) {
