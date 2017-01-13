@@ -18,11 +18,15 @@ public class AleFrame extends JFrame implements ActionListener {
 	//****************************************************************
 	ImageIcon mug = new ImageIcon("beerMug.png");
 	//****************************************************************
+	//Initial ABV calculation input...
 	JLabel myMessage = new JLabel("Welcome to AleCulator!");
 	JLabel spacer = new JLabel(" ");
 	JLabel ogMessage = new JLabel("Enter the Original Specific Gravity (ex. 1.056):");
 	JLabel fgMessage = new JLabel("Enter the Final Specific Gravity (ex. 1.018):");
 	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is:");
+	//****************************************************************
+	//Additional calculation input...
+	JLabel otherCalcMessage = new JLabel("TEST Other Calculation Message!");
 	//****************************************************************
 	JTextField getOG = new JTextField(10);
 	JTextField getFG = new JTextField(10);
@@ -37,7 +41,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JMenuItem about = new JMenuItem("About");
 	JMenuItem exit = new JMenuItem("Leave this place - now!");
 	JMenuItem otherCalcItems = new JMenuItem("Coming Soon!");
-	
+				
 	//****************************************************************
 	public AleFrame()
 	
@@ -47,6 +51,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH,HEIGHT);
 		//****************************************************************
+		
 		//this.getContentPane().setBackground(Color.BLACK);
 		//setLayout(new FlowLayout());
 		
@@ -78,15 +83,20 @@ public class AleFrame extends JFrame implements ActionListener {
 		//Set constraints...
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
+		/*c.weighty = 1;
+		c.weightx = 1;*/
 		c.gridx = 0;
 		c.gridy = 0;
 		add(myMessage, c);
 		GridBagConstraints p = new GridBagConstraints();
 		p.fill = GridBagConstraints.HORIZONTAL;
+		
 		p.gridx = 0;
 		p.gridy = 1;
 		add(ogMessage, p);
 		GridBagConstraints q = new GridBagConstraints();
+		q.fill = GridBagConstraints.HORIZONTAL;
+		
 		q.gridx = 1;
 		q.gridy = 1;
 		add(getOG, q);
@@ -127,6 +137,8 @@ public class AleFrame extends JFrame implements ActionListener {
 		otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent otherCalcEvent){
 				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\n", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
+				
+
 			}
 		});
 		
@@ -135,10 +147,11 @@ public class AleFrame extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Copyright (c) 2017 Dylan Wayne Foster\nHi! I'm Dylan. I live and work in North Carolina.\nI am a 2011 Summa Cum Laude Graduate of Belmont Abbey College in beautiful Belmont, NC.\nThanks for checking out my work!\n", "Your Friendly Neighborhood Java Programmer", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
+		
+		
 	}
 	
 	//****************************************************************
-	
 	//Event Handler...
 	@Override
 	public void actionPerformed(ActionEvent submissionEvent) {
