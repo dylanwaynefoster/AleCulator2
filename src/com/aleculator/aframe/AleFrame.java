@@ -24,10 +24,11 @@ public class AleFrame extends JFrame implements ActionListener {
 	//****************************************************************
 	//Initial ABV calculation input...
 	JLabel myMessage = new JLabel("Welcome to AleCulator!");
-	//JLabel spacer = new JLabel(" ");
+	JLabel spacer = new JLabel("                                             ");
 	JLabel ogMessage = new JLabel("Enter the Original Specific Gravity (ex. 1.056):");
 	JLabel fgMessage = new JLabel("Enter the Final Specific Gravity (ex. 1.018):");
-	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is:");
+	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is: ");
+	//
 	//****************************************************************
 	//Additional calculation input...
 	JLabel otherCalcMessage = new JLabel("Stay Tuned For Other Helpful Homebrewing Calculations!\nComing Soon!");
@@ -61,6 +62,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		this.setSize(WIDTH, HEIGHT);
 		//****************************************************************
 		panelOne.add(myMessage);
+		panelOne.add(spacer);
 		panelOne.add(ogMessage);
 		panelOne.add(getOG);
 		panelOne.add(fgMessage);
@@ -68,6 +70,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		panelOne.add(abvMessage);
 		panelOne.add(showABV);
 		panelOne.add(pressSubmit);
+		panelOne.getRootPane().setDefaultButton(pressSubmit);
 		//****************************************************************
 		setVisible(true);
 		//****************************************************************
@@ -75,7 +78,8 @@ public class AleFrame extends JFrame implements ActionListener {
 		//this.getContentPane().setBackground(Color.BLACK);
 		//setLayout(new FlowLayout());
 		
-		/*myMessage.setFont(new Font("Courier New", Font.ITALIC, 20));
+		myMessage.setFont(new Font("Courier New", Font.ITALIC, 20));
+		/*
 		myMessage.setBackground(Color.BLACK);
 		myMessage.setForeground(Color.GREEN);
 		myMessage.setOpaque(true);
@@ -146,6 +150,7 @@ public class AleFrame extends JFrame implements ActionListener {
 */		setIconImage(mug.getImage());
 		pressSubmit.addActionListener(this);
 		
+		
 		//****************************************************************
 		otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
@@ -196,6 +201,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		double fgNum = showMe.getFG(fg);
 		myABV = showMe.getABV(ogNum, fgNum);
 		showABV.setText(myABV);
+		
 
 	}
 }
