@@ -15,6 +15,7 @@ public class TryCardLayout extends JFrame {
 	JMenuBar mainBar = new JMenuBar();
 	JMenu go = new JMenu("Go!");
 	JMenuItem doIT = new JMenuItem("Do It!");
+	JLabel otherCalcMessage = new JLabel("TEST Other Calculation Message!");
 	
 	public TryCardLayout(){
 		
@@ -30,8 +31,10 @@ public class TryCardLayout extends JFrame {
 		add("panel", panel);
 		panel.setBackground(Color.GREEN);
 		panel.setSize(WIDTH, HEIGHT);
-		setVisible(true);
+		panel.add(otherCalcMessage);
 		this.setSize(WIDTH, HEIGHT);
+		setVisible(true);
+		
 		doIT.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
 				khan.remove(panel);;				

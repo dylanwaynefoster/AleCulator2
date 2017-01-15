@@ -13,6 +13,10 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class AleFrame extends JFrame implements ActionListener {
 	
+	private CardLayout xCards = new CardLayout();
+	private Container khan = getContentPane();
+	private JPanel panelOne = new JPanel();
+	private JPanel panelTwo = new JPanel();
 	final int WIDTH = 550;
 	final int HEIGHT = 550;
 	//****************************************************************
@@ -20,13 +24,13 @@ public class AleFrame extends JFrame implements ActionListener {
 	//****************************************************************
 	//Initial ABV calculation input...
 	JLabel myMessage = new JLabel("Welcome to AleCulator!");
-	JLabel spacer = new JLabel(" ");
+	//JLabel spacer = new JLabel(" ");
 	JLabel ogMessage = new JLabel("Enter the Original Specific Gravity (ex. 1.056):");
 	JLabel fgMessage = new JLabel("Enter the Final Specific Gravity (ex. 1.018):");
 	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is:");
 	//****************************************************************
 	//Additional calculation input...
-	JLabel otherCalcMessage = new JLabel("TEST Other Calculation Message!");
+	JLabel otherCalcMessage = new JLabel("Stay Tuned For Other Helpful Homebrewing Calculations!\nComing Soon!");
 	//****************************************************************
 	JTextField getOG = new JTextField(10);
 	JTextField getFG = new JTextField(10);
@@ -48,8 +52,24 @@ public class AleFrame extends JFrame implements ActionListener {
 	{
 		
 		super("AleCulator2");
+		khan.setLayout(xCards);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH,HEIGHT);
+		khan.setSize(WIDTH, HEIGHT);
+		add("panelOne", panelOne);
+		panelOne.setSize(WIDTH, HEIGHT);
+		this.setSize(WIDTH, HEIGHT);
+		//****************************************************************
+		panelOne.add(myMessage);
+		panelOne.add(ogMessage);
+		panelOne.add(getOG);
+		panelOne.add(fgMessage);
+		panelOne.add(getFG);
+		panelOne.add(abvMessage);
+		panelOne.add(showABV);
+		panelOne.add(pressSubmit);
+		//****************************************************************
+		setVisible(true);
 		//****************************************************************
 		
 		//this.getContentPane().setBackground(Color.BLACK);
@@ -68,7 +88,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		
 		//****************************************************************		
 		//Setting up a GridBagLayout...
-		setLayout(new GridBagLayout());
+		//setLayout(new GridBagLayout());
 		
 		//****************************************************************
 		//Set up Menu Bar...
@@ -78,13 +98,13 @@ public class AleFrame extends JFrame implements ActionListener {
 		file.add(about);
 		file.add(exit);
 		otherCalc.add(otherCalcItems);
-		
+		/*
 		//****************************************************************
 		//Set constraints...
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
-		/*c.weighty = 1;
-		c.weightx = 1;*/
+		c.weighty = 1;
+		c.weightx = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 		add(myMessage, c);
@@ -123,17 +143,28 @@ public class AleFrame extends JFrame implements ActionListener {
 		b.gridy = 4;
 		add(pressSubmit, b);
 		
-		setIconImage(mug.getImage());
+*/		setIconImage(mug.getImage());
 		pressSubmit.addActionListener(this);
 		
 		//****************************************************************
+		otherCalcItems.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
+				khan.remove(panelOne);
+				khan.setLayout(xCards);
+				add("panelTwo", panelTwo);
+				panelTwo.setSize(WIDTH, HEIGHT);
+				panelTwo.add(otherCalcMessage);
+				;				
+			}
+		});
 		//Set menu action listeners...
 		exit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent exitEvent) {
 	            System.exit(0);
 	        }
 		});
-		
+
+		/*
 		otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent otherCalcEvent){
 				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\n", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
@@ -142,6 +173,7 @@ public class AleFrame extends JFrame implements ActionListener {
 			}
 		});
 		
+*/		
 		about.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent aboutEvent){
 				JOptionPane.showMessageDialog(null, "Copyright (c) 2017 Dylan Wayne Foster\nHi! I'm Dylan. I live and work in North Carolina.\nI am a 2011 Summa Cum Laude Graduate of Belmont Abbey College in beautiful Belmont, NC.\nThanks for checking out my work!\n", "Your Friendly Neighborhood Java Programmer", JOptionPane.INFORMATION_MESSAGE);
