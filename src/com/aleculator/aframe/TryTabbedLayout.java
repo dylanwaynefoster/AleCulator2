@@ -4,7 +4,8 @@
 
 package com.aleculator.aframe;
 
-import javax.swing.JTabbedPane;
+import javax.swing.*;
+/*import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,13 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.UIManager;*/
 
 import com.aleculator.CalcMethods;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-//import java.awt.Dimension;
+import java.awt.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("serial")
 public class TryTabbedLayout extends JPanel {
 
+	String xyz = "<html>Trying something<br>...Should be a new line<br>...and yet another</html>";
 	JLabel askDegreesC = new JLabel("Degrees Celcius: ");
 	JTextField degreesC = new JTextField(10);
 	JButton submit = new JButton("Calculate!");
@@ -35,12 +37,12 @@ public class TryTabbedLayout extends JPanel {
 	static JTextField degreesF = new JTextField(10);
 	
 	public TryTabbedLayout(){
-		super(new GridLayout(1, 1));
+		super(new GridLayout(1, 0));
 		
 		JTabbedPane myTabPane = new JTabbedPane();
 		ImageIcon icon = new ImageIcon("beerMug.PNG");
 		
-		JComponent panel1 = makeMyPanel("Number One...");
+		JComponent panel1 = makeMyPanel(xyz);
 		panel1.setBackground(Color.BLUE);
 		myTabPane.addTab("This is a tab!", icon, panel1, "Not so much done...");
 		myTabPane.setMnemonicAt(0, KeyEvent.VK_2);
@@ -53,6 +55,7 @@ public class TryTabbedLayout extends JPanel {
 		//Add the tabbed pane...
 		add(myTabPane);
 		
+		myTabPane.setSize(550, 550);
 		//For scrolling...
 		myTabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		

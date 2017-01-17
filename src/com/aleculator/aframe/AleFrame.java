@@ -23,15 +23,23 @@ public class AleFrame extends JFrame implements ActionListener {
 	ImageIcon mug = new ImageIcon("beerMug.png");
 	//****************************************************************
 	//Initial ABV calculation input...
-	JLabel myMessage = new JLabel("Welcome to AleCulator!");
+	JLabel myMessage = new JLabel("<html>Welcome to AleCulator!<br></html>");
 	JLabel spacer = new JLabel("                                             ");
+	JLabel spacerX = new JLabel("<html><br></html>");
+	JLabel spacerX2 = new JLabel("<html><br></html>");
 	JLabel ogMessage = new JLabel("Enter the Original Specific Gravity (ex. 1.056):");
 	JLabel fgMessage = new JLabel("Enter the Final Specific Gravity (ex. 1.018):");
 	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is: ");
 	//
 	//****************************************************************
 	//Additional calculation input...
-	JLabel otherCalcMessage = new JLabel("Stay Tuned For Other Helpful Homebrewing Calculations!\nComing Soon!");
+	JLabel otherCalcMessage = new JLabel("<html>Stay Tuned For Other Helpful Homebrewing Calculations!<br>Coming Soon!<br></html>");
+	JLabel tempConversionMessage = new JLabel("<html>Enter the temperature you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br></html>");
+	JLabel askDegreesC = new JLabel("Degrees Celcius: ");
+	JTextField degreesC = new JTextField(10);
+	JButton submit = new JButton("Calculate!");
+	JLabel askDegreesF = new JLabel("Degrees Farenheit: ");
+	JTextField degreesF = new JTextField(10);
 	//****************************************************************
 	JTextField getOG = new JTextField(10);
 	JTextField getFG = new JTextField(10);
@@ -46,6 +54,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JMenuItem about = new JMenuItem("About");
 	JMenuItem exit = new JMenuItem("Leave this place - now!");
 	JMenuItem otherCalcItems = new JMenuItem("Coming Soon!");
+	JMenuItem tempConversion = new JMenuItem("Temperature Conversion");
 				
 	//****************************************************************
 	public AleFrame()
@@ -101,6 +110,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		mainBar.add(otherCalc);
 		file.add(about);
 		file.add(exit);
+		otherCalc.add(tempConversion);
 		otherCalc.add(otherCalcItems);
 		/*
 		//****************************************************************
@@ -152,15 +162,64 @@ public class AleFrame extends JFrame implements ActionListener {
 		
 		
 		//****************************************************************
-		otherCalcItems.addActionListener(new ActionListener(){
+		/*otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
-				khan.remove(panelOne);
+				
 				khan.setLayout(xCards);
 				add("panelTwo", panelTwo);
 				panelTwo.setSize(WIDTH, HEIGHT);
 				panelTwo.add(otherCalcMessage);
+				panelTwo.setVisible(true);
+				khan.remove(panelOne);
 				;				
 			}
+		});*/
+		
+		tempConversion.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
+				
+				khan.setLayout(xCards);
+				add("panelTwo", panelTwo);
+				panelTwo.setSize(WIDTH, HEIGHT);
+				panelTwo.add(tempConversionMessage);
+				panelTwo.add(spacerX);
+				panelTwo.add(askDegreesC);
+				panelTwo.add(degreesC);
+				panelTwo.add(spacerX2);
+				panelTwo.add(askDegreesF);
+				panelTwo.add(degreesF);
+				panelTwo.add(submit);
+								//Actually show the panel...
+				panelTwo.setVisible(true);
+				//Remove top layer...makes it seem instant
+				khan.remove(panelOne);
+				
+				;				
+			}
+		});
+		
+		
+		submit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent cToF_Event) {
+				
+				String c = degreesC.getText();
+				String f = degreesF.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (f.isEmpty())
+				{
+					double cNum = showMe.getC(c);
+					f = showMe.tempConversionCalcCToF(cNum);
+					degreesF.setText(f);
+				}
+				else
+				{
+					double fNum = showMe.getF(f);
+					c = showMe.tempConversionCalc_FToC(fNum);
+					degreesC.setText(c);
+				}
+
+			}
+
 		});
 		//Set menu action listeners...
 		exit.addActionListener(new ActionListener(){
@@ -169,7 +228,6 @@ public class AleFrame extends JFrame implements ActionListener {
 	        }
 		});
 
-		/*
 		otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent otherCalcEvent){
 				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\n", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
@@ -177,8 +235,7 @@ public class AleFrame extends JFrame implements ActionListener {
 
 			}
 		});
-		
-*/		
+				
 		about.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent aboutEvent){
 				JOptionPane.showMessageDialog(null, "Copyright (c) 2017 Dylan Wayne Foster\nHi! I'm Dylan. I live and work in North Carolina.\nI am a 2011 Summa Cum Laude Graduate of Belmont Abbey College in beautiful Belmont, NC.\nThanks for checking out my work!\n", "Your Friendly Neighborhood Java Programmer", JOptionPane.INFORMATION_MESSAGE);
