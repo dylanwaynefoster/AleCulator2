@@ -5,22 +5,35 @@
 package com.aleculator.aframe;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import com.aleculator.CalcMethods;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 //import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class TryTabbedLayout extends JPanel {
 
+	JLabel askDegreesC = new JLabel("Degrees Celcius: ");
+	JTextField degreesC = new JTextField(10);
+	JButton submit = new JButton("Calculate!");
+	JLabel askDegreesF = new JLabel("Degrees Farenheit: ");
+	static JTextField degreesF = new JTextField(10);
+	
 	public TryTabbedLayout(){
 		super(new GridLayout(1, 1));
 		
@@ -42,6 +55,29 @@ public class TryTabbedLayout extends JPanel {
 		
 		//For scrolling...
 		myTabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		
+		submit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent cToF_Event) {
+				
+				String c = degreesC.getText();
+				String f = degreesF.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (f.isEmpty())
+				{
+					double cNum = showMe.getC(c);
+					f = showMe.tempConversionCalcCToF(cNum);
+					degreesF.setText(f);
+				}
+				else
+				{
+					double fNum = showMe.getF(f);
+					c = showMe.tempConversionCalc_FToC(fNum);
+					degreesC.setText(c);
+				}
+
+			}
+
+		});
 	}
 	
 	protected JComponent makeMyPanel(String x){
@@ -50,10 +86,18 @@ public class TryTabbedLayout extends JPanel {
 		fillThis.setHorizontalAlignment(JLabel.LEFT);
 		aNewPanel.setLayout(new GridLayout(1, 1));
 		aNewPanel.add(fillThis);
+		aNewPanel.add(askDegreesC);
+		aNewPanel.add(degreesC);
+		aNewPanel.add(submit);
+		aNewPanel.add(askDegreesF);
+		aNewPanel.add(degreesF);
+		//aNewPanel.getRootPane().setDefaultButton(submit);
 		this.setSize(550, 550);
 		return aNewPanel;
 	}
 	
+	//****************************************************************
+			
 	private static void showItToMe(){
 		//Create and set up the window...
         JFrame thisFrame = new JFrame("Tabs Please!!!");
@@ -65,17 +109,16 @@ public class TryTabbedLayout extends JPanel {
         thisFrame.setSize(550, 550);
         thisFrame.setVisible(true);
 	}
-	
-	
-	
+		
 	public static void main(String[] args) {
 		//Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //Turn off metal's use of bold fonts
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
+        //Turn off/on metal's use of bold fonts
+        //UIManager.put("swing.boldMetal", Boolean.TRUE);
         showItToMe();
+        
             }
         });
 

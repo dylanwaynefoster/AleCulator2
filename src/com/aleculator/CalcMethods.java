@@ -8,15 +8,13 @@ public class CalcMethods {
 
 	public double getOG(String textOG) {
 		
-		//String textOG = JOptionPane.showInputDialog(null, "Enter the OG:", "Original Specific Gravity", JOptionPane.QUESTION_MESSAGE);
 		double myOG = Double.parseDouble(textOG);
 		return myOG;
 		
 	}
 	
 	public double getFG(String textFG) {
-		
-		//String textFG = JOptionPane.showInputDialog(null, "Enter the FG:", "Final Specific Gravity", JOptionPane.QUESTION_MESSAGE);
+				
 		double myFG = Double.parseDouble(textFG);
 		return myFG;
 		
@@ -35,4 +33,42 @@ public class CalcMethods {
 		return textABV;
 	}
 	
+	//*************************************************************
+	//Temperature Conversion Methods
+	
+	public double getC(String textC) {
+		
+		double myC = Double.parseDouble(textC);
+		return myC;
+		
+	}
+	
+	public double getF(String textF) {
+		
+		double myF = Double.parseDouble(textF);
+		return myF;
+		
+	}
+	
+	public String tempConversionCalcCToF(double C){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double F = 0;
+		String textF = "";
+		F = ((C * 1.8) + 32);
+		textF = myDF.format(F);
+		return textF;
+						
+	}
+	
+public String tempConversionCalc_FToC(double F){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double C = 0;
+		String textC = "";
+		C = ((F - 32) * .5556);
+		textC = myDF.format(C);
+		return textC;
+						
+	}
 }
