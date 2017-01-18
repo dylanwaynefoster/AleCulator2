@@ -13,20 +13,22 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class AleFrame extends JFrame implements ActionListener {
 	
-	private CardLayout xCards = new CardLayout();
-	private Container khan = getContentPane();
-	private JPanel panelOne = new JPanel();
-	private JPanel panelTwo = new JPanel();
+	CardLayout xCards = new CardLayout();
+	Container khan = getContentPane();
+	JPanel panelZero = new JPanel();
+	JPanel panelOne = new JPanel();
+	JPanel panelTwo = new JPanel();
 	final int WIDTH = 550;
 	final int HEIGHT = 550;
 	//****************************************************************
 	ImageIcon mug = new ImageIcon("beerMug.png");
 	//****************************************************************
-	//Initial ABV calculation input...
-	JLabel myMessage = new JLabel("<html>Welcome to AleCulator!<br></html>");
-	JLabel spacer = new JLabel("                                             ");
+	//Initial Greeting screen...
+	JLabel myMessage = new JLabel("<html><h2>Welcome to AleCulator!</h2><br></html>");
+	JLabel myOtherMessage = new JLabel("<html><p>Here you will find an ABV calculator as well as other helpful brewing calculations.</p><br></html>");
+	JLabel instruct = new JLabel("<html><p><b>Make a selection from the menu to begin...</b></p><br></html>");
 	JLabel spacerX = new JLabel("<html><br></html>");
-	JLabel spacerX2 = new JLabel("<html><br></html>");
+	//Initial ABV input screen...
 	JLabel ogMessage = new JLabel("Enter the Original Specific Gravity (ex. 1.056):");
 	JLabel fgMessage = new JLabel("Enter the Final Specific Gravity (ex. 1.018):");
 	JLabel abvMessage = new JLabel("The Alcohol by Volume percentage of you beer is: ");
@@ -41,6 +43,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JLabel askDegreesF = new JLabel("Degrees Farenheit: ");
 	JTextField degreesF = new JTextField(10);
 	//****************************************************************
+	//ABV calculation input...
 	JTextField getOG = new JTextField(10);
 	JTextField getFG = new JTextField(10);
 	JTextField showABV = new JTextField(10);
@@ -50,13 +53,15 @@ public class AleFrame extends JFrame implements ActionListener {
 	//****************************************************************
 	JMenuBar mainBar = new JMenuBar();
 	JMenu file = new JMenu("File");
-	JMenu otherCalc = new JMenu("Other Helpful Calculations");
+	JMenu otherCalc = new JMenu("Calculators");
 	JMenuItem about = new JMenuItem("About");
-	JMenuItem exit = new JMenuItem("Leave this place - now!");
+	JMenuItem exit = new JMenuItem("Leave - now!");
 	JMenuItem otherCalcItems = new JMenuItem("Coming Soon!");
 	JMenuItem tempConversion = new JMenuItem("Temperature Conversion");
+	JMenuItem abvDo = new JMenuItem("Alcohol Content (ABV)");
 				
 	//****************************************************************
+	
 	public AleFrame()
 	
 	{
@@ -66,115 +71,46 @@ public class AleFrame extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH,HEIGHT);
 		khan.setSize(WIDTH, HEIGHT);
-		add("panelOne", panelOne);
+		add("panelZero", panelZero);
 		panelOne.setSize(WIDTH, HEIGHT);
 		this.setSize(WIDTH, HEIGHT);
-		//****************************************************************
-		panelOne.add(myMessage);
-		panelOne.add(spacer);
-		panelOne.add(ogMessage);
-		panelOne.add(getOG);
-		panelOne.add(fgMessage);
-		panelOne.add(getFG);
-		panelOne.add(abvMessage);
-		panelOne.add(showABV);
-		panelOne.add(pressSubmit);
-		panelOne.getRootPane().setDefaultButton(pressSubmit);
-		//****************************************************************
-		setVisible(true);
+		
 		//****************************************************************
 		
-		//this.getContentPane().setBackground(Color.BLACK);
-		//setLayout(new FlowLayout());
+		//Generating initial greeting screen...
+		panelZero.add(myMessage);
+		panelZero.add(myOtherMessage);
+		panelZero.add(instruct);
+				
+		//****************************************************************
+		
+		setVisible(true);
+		
+		//****************************************************************
 		
 		myMessage.setFont(new Font("Courier New", Font.ITALIC, 20));
-		/*
-		myMessage.setBackground(Color.BLACK);
-		myMessage.setForeground(Color.GREEN);
-		myMessage.setOpaque(true);
-		ogMessage.setFont(new Font("Courier New", Font.BOLD, 12));
-		ogMessage.setBackground(Color.BLACK);
-		ogMessage.setForeground(Color.GREEN);
-		fgMessage.setFont(new Font("Courier New", Font.BOLD, 12));
-		fgMessage.setBackground(Color.BLACK);
-		fgMessage.setForeground(Color.GREEN);*/
-		
-		//****************************************************************		
-		//Setting up a GridBagLayout...
-		//setLayout(new GridBagLayout());
-		
+				
 		//****************************************************************
+		
 		//Set up Menu Bar...
 		setJMenuBar(mainBar);
 		mainBar.add(file);
 		mainBar.add(otherCalc);
 		file.add(about);
 		file.add(exit);
+		otherCalc.add(abvDo);
 		otherCalc.add(tempConversion);
 		otherCalc.add(otherCalcItems);
-		/*
-		//****************************************************************
-		//Set constraints...
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weighty = 1;
-		c.weightx = 1;
-		c.gridx = 0;
-		c.gridy = 0;
-		add(myMessage, c);
-		GridBagConstraints p = new GridBagConstraints();
-		p.fill = GridBagConstraints.HORIZONTAL;
-		
-		p.gridx = 0;
-		p.gridy = 1;
-		add(ogMessage, p);
-		GridBagConstraints q = new GridBagConstraints();
-		q.fill = GridBagConstraints.HORIZONTAL;
-		
-		q.gridx = 1;
-		q.gridy = 1;
-		add(getOG, q);
-		//add(pressOG);
-		GridBagConstraints r = new GridBagConstraints();
-		r.fill = GridBagConstraints.HORIZONTAL;
-		r.gridx = 0;
-		r.gridy = 2;
-		add(fgMessage, r);
-		GridBagConstraints a = new GridBagConstraints();
-		a.gridx = 1;
-		a.gridy = 2;
-		add(getFG, a);
-		GridBagConstraints x = new GridBagConstraints();
-		x.gridx = 0;
-		x.gridy = 3;
-		add(abvMessage, x);
-		GridBagConstraints y = new GridBagConstraints();
-		y.gridx = 1;
-		y.gridy = 3;
-		add(showABV, y);
-		GridBagConstraints b = new GridBagConstraints();
-		b.gridx = 1;
-		b.gridy = 4;
-		add(pressSubmit, b);
-		
-*/		setIconImage(mug.getImage());
-		pressSubmit.addActionListener(this);
-		
-		
-		//****************************************************************
-		/*otherCalcItems.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
 				
-				khan.setLayout(xCards);
-				add("panelTwo", panelTwo);
-				panelTwo.setSize(WIDTH, HEIGHT);
-				panelTwo.add(otherCalcMessage);
-				panelTwo.setVisible(true);
-				khan.remove(panelOne);
-				;				
-			}
-		});*/
+		//****************************************************************
 		
+		setIconImage(mug.getImage());
+		pressSubmit.addActionListener(this);
+		submit.addActionListener(this);
+				
+		//****************************************************************
+		
+		//Set menu action listeners...
 		tempConversion.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent javaLayoutManagersSuck){
 				
@@ -185,11 +121,12 @@ public class AleFrame extends JFrame implements ActionListener {
 				panelTwo.add(spacerX);
 				panelTwo.add(askDegreesC);
 				panelTwo.add(degreesC);
-				panelTwo.add(spacerX2);
+				panelTwo.add(spacerX);
 				panelTwo.add(askDegreesF);
 				panelTwo.add(degreesF);
 				panelTwo.add(submit);
-								//Actually show the panel...
+				panelTwo.getRootPane().setDefaultButton(submit);
+				//Actually show the panel...
 				panelTwo.setVisible(true);
 				//Remove top layer...makes it seem instant
 				khan.remove(panelOne);
@@ -221,7 +158,7 @@ public class AleFrame extends JFrame implements ActionListener {
 			}
 
 		});
-		//Set menu action listeners...
+		
 		exit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent exitEvent) {
 	            System.exit(0);
@@ -242,7 +179,26 @@ public class AleFrame extends JFrame implements ActionListener {
 			}
 		});
 		
-		
+		abvDo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent abvDoEvent){
+				
+				khan.setLayout(xCards);
+				add("panelOne", panelOne);
+				panelOne.setSize(WIDTH, HEIGHT);
+				panelOne.add(ogMessage);
+				panelOne.add(getOG);
+				panelOne.add(fgMessage);
+				panelOne.add(getFG);
+				panelOne.add(abvMessage);
+				panelOne.add(showABV);
+				panelOne.add(pressSubmit);
+				panelOne.getRootPane().setDefaultButton(pressSubmit);
+				//Actually show the panel...
+				panelTwo.setVisible(true);
+				//Remove top layer...makes it seem instant
+				khan.remove(panelZero);
+			}
+		});
 	}
 	
 	//****************************************************************

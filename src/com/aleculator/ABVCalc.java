@@ -14,8 +14,8 @@ public class ABVCalc {
 		//Call frame to build UI
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		AleFrame frame = new AleFrame();
-		//frame.pack();
 		frame.setVisible(true);
+		frame.setResizable(false);
 		
 	}
 
