@@ -42,6 +42,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JButton submit = new JButton("Calculate!");
 	JLabel askDegreesF = new JLabel("Degrees Farenheit: ");
 	JTextField degreesF = new JTextField(10);
+	JButton myRefresh = new JButton("Refresh!");
 	//****************************************************************
 	//ABV calculation input...
 	JTextField getOG = new JTextField(10);
@@ -72,7 +73,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		setSize(WIDTH,HEIGHT);
 		khan.setSize(WIDTH, HEIGHT);
 		add("panelZero", panelZero);
-		panelOne.setSize(WIDTH, HEIGHT);
+		panelZero.setSize(WIDTH, HEIGHT);
 		this.setSize(WIDTH, HEIGHT);
 		
 		//****************************************************************
@@ -94,6 +95,8 @@ public class AleFrame extends JFrame implements ActionListener {
 		
 		//Set up Menu Bar...
 		setJMenuBar(mainBar);
+		//mainBar.setBackground(Color.BLACK);
+		//mainBar.setForeground(Color.WHITE);
 		mainBar.add(file);
 		mainBar.add(otherCalc);
 		file.add(about);
@@ -106,8 +109,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		
 		setIconImage(mug.getImage());
 		pressSubmit.addActionListener(this);
-		submit.addActionListener(this);
-				
+						
 		//****************************************************************
 		
 		//Set menu action listeners...
@@ -125,16 +127,29 @@ public class AleFrame extends JFrame implements ActionListener {
 				panelTwo.add(askDegreesF);
 				panelTwo.add(degreesF);
 				panelTwo.add(submit);
+				panelTwo.add(myRefresh);
+				submit.addActionListener(this);
 				panelTwo.getRootPane().setDefaultButton(submit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						degreesC.setText("");;
+						degreesF.setText("");
+			        }
+				});
+				
+				//*********************************************************
 				//Actually show the panel...
 				panelTwo.setVisible(true);
 				//Remove top layer...makes it seem instant
+				khan.remove(panelZero);
 				khan.remove(panelOne);
 				
 				;				
 			}
 		});
-		
 		
 		submit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent cToF_Event) {
@@ -192,11 +207,25 @@ public class AleFrame extends JFrame implements ActionListener {
 				panelOne.add(abvMessage);
 				panelOne.add(showABV);
 				panelOne.add(pressSubmit);
+				panelOne.add(myRefresh);
 				panelOne.getRootPane().setDefaultButton(pressSubmit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				//I was able to reuse the object...
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						getOG.setText("");
+						getFG.setText("");
+						showABV.setText("");
+			        }
+				});
+				
 				//Actually show the panel...
 				panelTwo.setVisible(true);
-				//Remove top layer...makes it seem instant
+				//Remove top layer...makes it seem instant...removing the other 2 panels at the same time to allow for choosing whichever method you want first...
 				khan.remove(panelZero);
+				khan.remove(panelTwo);
 			}
 		});
 	}
