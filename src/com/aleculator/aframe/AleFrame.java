@@ -18,6 +18,8 @@ public class AleFrame extends JFrame implements ActionListener {
 	JPanel panelZero = new JPanel();
 	JPanel panelOne = new JPanel();
 	JPanel panelTwo = new JPanel();
+	JPanel panelThree = new JPanel();
+	JPanel panelFour = new JPanel();
 	final int WIDTH = 550;
 	final int HEIGHT = 550;
 	//****************************************************************
@@ -35,7 +37,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	//
 	//****************************************************************
 	//Additional calculation input...
-	JLabel otherCalcMessage = new JLabel("<html>Stay Tuned For Other Helpful Homebrewing Calculations!<br>Coming Soon!<br></html>");
+	//JLabel otherCalcMessage = new JLabel("Stay Tuned For Other Helpful Homebrewing Calculations!\nComing Soon!");
 	JLabel tempConversionMessage = new JLabel("<html>Enter the temperature you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br></html>");
 	JLabel askDegreesC = new JLabel("Degrees Celcius: ");
 	JTextField degreesC = new JTextField(10);
@@ -43,6 +45,22 @@ public class AleFrame extends JFrame implements ActionListener {
 	JLabel askDegreesF = new JLabel("Degrees Farenheit: ");
 	JTextField degreesF = new JTextField(10);
 	JButton myRefresh = new JButton("Refresh!");
+	//****************************************************************
+	//Dry Measure Input...
+	JLabel ounceGramMess = new JLabel("<html>Enter the measurement you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br></html>");
+	JLabel dryOunces = new JLabel("Dry Ounces: ");
+	JTextField getDryOz = new JTextField(10);
+	JLabel grams = new JLabel("Grams: ");
+	JTextField getGrams = new JTextField(10);
+	JButton weightSubmit = new JButton("Calculate!");
+	//****************************************************************
+	//Liquid Measure Input...
+	JLabel gallonLiterMess = new JLabel("<html>Enter the measurement you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br><br></html>");
+	JLabel gallons = new JLabel("      Gallons: ");
+	JTextField getGallons = new JTextField(10);
+	JLabel liters = new JLabel("Liters: ");
+	JTextField getLiters = new JTextField(10);
+	JButton wetSubmit = new JButton("Calculate!");
 	//****************************************************************
 	//ABV calculation input...
 	JTextField getOG = new JTextField(10);
@@ -55,11 +73,15 @@ public class AleFrame extends JFrame implements ActionListener {
 	JMenuBar mainBar = new JMenuBar();
 	JMenu file = new JMenu("File");
 	JMenu otherCalc = new JMenu("Calculators");
-	JMenuItem about = new JMenuItem("About");
+	JMenuItem about = new JMenuItem("About Me");
 	JMenuItem exit = new JMenuItem("Leave - now!");
 	JMenuItem otherCalcItems = new JMenuItem("Coming Soon!");
 	JMenuItem tempConversion = new JMenuItem("Temperature Conversion");
 	JMenuItem abvDo = new JMenuItem("Alcohol Content (ABV)");
+	JMenu dryMeas = new JMenu("Dry Measures");
+	JMenuItem oz2Grams = new JMenuItem("Ounces/Grams");
+	JMenu liqMeas = new JMenu("Liquid Measures");
+	JMenuItem gal2Lit = new JMenuItem("Gallons/Liters");
 				
 	//****************************************************************
 	
@@ -103,6 +125,10 @@ public class AleFrame extends JFrame implements ActionListener {
 		file.add(exit);
 		otherCalc.add(abvDo);
 		otherCalc.add(tempConversion);
+		otherCalc.add(dryMeas);
+		dryMeas.add(oz2Grams);
+		otherCalc.add(liqMeas);
+		liqMeas.add(gal2Lit);
 		otherCalc.add(otherCalcItems);
 				
 		//****************************************************************
@@ -141,11 +167,11 @@ public class AleFrame extends JFrame implements ActionListener {
 				});
 				
 				//*********************************************************
-				//Actually show the panel...
-				panelTwo.setVisible(true);
 				//Remove top layer...makes it seem instant
 				khan.remove(panelZero);
 				khan.remove(panelOne);
+				khan.remove(panelThree);
+				khan.remove(panelFour);
 				
 				;				
 			}
@@ -182,7 +208,7 @@ public class AleFrame extends JFrame implements ActionListener {
 
 		otherCalcItems.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent otherCalcEvent){
-				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\n", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Stay Tuned For Other Helpful Homebrewing Calculations!\nBittering Units\nBoth IBU and HBU", "Coming Soon!", JOptionPane.INFORMATION_MESSAGE);
 				
 
 			}
@@ -220,14 +246,81 @@ public class AleFrame extends JFrame implements ActionListener {
 						showABV.setText("");
 			        }
 				});
-				
-				//Actually show the panel...
-				panelTwo.setVisible(true);
-				//Remove top layer...makes it seem instant...removing the other 2 panels at the same time to allow for choosing whichever method you want first...
+
+				//Remove top layer...makes it seem instant...removing the other panels at the same time to allow for choosing whichever method you want first...
 				khan.remove(panelZero);
 				khan.remove(panelTwo);
+				khan.remove(panelThree);
+				khan.remove(panelFour);
 			}
 		});
+		
+		oz2Grams.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent abvDoEvent){
+				
+				khan.setLayout(xCards);
+				add("panelThree", panelThree);
+				panelThree.setSize(WIDTH, HEIGHT);
+				panelThree.add(ounceGramMess);
+				panelThree.add(dryOunces);
+				panelThree.add(getDryOz);
+				panelThree.add(grams);
+				panelThree.add(getGrams);
+				panelThree.add(weightSubmit);
+				panelThree.add(myRefresh);
+				panelThree.getRootPane().setDefaultButton(weightSubmit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				//I was able to reuse the object...
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						getDryOz.setText("");
+						getGrams.setText("");
+			        }
+				});
+
+				//Remove top layer...makes it seem instant...removing the other panels at the same time to allow for choosing whichever method you want first...
+				khan.remove(panelZero);
+				khan.remove(panelOne);
+				khan.remove(panelTwo);
+				khan.remove(panelFour);
+			}
+		});
+
+		gal2Lit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent abvDoEvent){
+				
+				khan.setLayout(xCards);
+				add("panelFour", panelFour);
+				panelFour.setSize(WIDTH, HEIGHT);
+				panelFour.add(gallonLiterMess);
+				panelFour.add(gallons);
+				panelFour.add(getGallons);
+				panelFour.add(liters);
+				panelFour.add(getLiters);
+				panelFour.add(wetSubmit);
+				panelFour.add(myRefresh);
+				panelFour.getRootPane().setDefaultButton(wetSubmit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				//I was able to reuse the object...
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						getGallons.setText("");
+						getLiters.setText("");
+			        }
+				});
+
+				//Remove top layer...makes it seem instant...removing the other panels at the same time to allow for choosing whichever method you want first...
+				khan.remove(panelZero);
+				khan.remove(panelOne);
+				khan.remove(panelTwo);
+				khan.remove(panelThree);
+			}
+		});
+		
 	}
 	
 	//****************************************************************
