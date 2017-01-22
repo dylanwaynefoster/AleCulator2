@@ -288,6 +288,30 @@ public class AleFrame extends JFrame implements ActionListener {
 			}
 		});
 
+		weightSubmit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent weightConversion_Event) {
+				
+				String ounces = getDryOz.getText();
+				String grams = getGrams.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (grams.isEmpty())
+				{
+					double ounceNum = showMe.getDryOz(ounces);
+					grams = showMe.weightConversion_Oz_To_Grams(ounceNum);
+					getGrams.setText(grams);
+				}
+				else
+				{
+					double gramNum = showMe.getGrams(grams);
+					ounces = showMe.weightConversion_Grams_To_Ounces(gramNum);
+					getDryOz.setText(ounces);
+				}
+
+			}
+
+		});
+
+		
 		gal2Lit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent abvDoEvent){
 				
@@ -320,6 +344,30 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelThree);
 			}
 		});
+		
+		wetSubmit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent wetWeightConversion_Event) {
+				
+				String gallons = getGallons.getText();
+				String liters = getLiters.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (liters.isEmpty())
+				{
+					double gallonNum = showMe.getGallons(gallons);
+					liters = showMe.liquidConvGallonsToLiters(gallonNum);
+					getLiters.setText(liters);
+				}
+				else
+				{
+					double literNum = showMe.getLit(liters);
+					gallons = showMe.liquidConvLitersToGallons(literNum);
+					getGallons.setText(gallons);
+				}
+
+			}
+
+		});
+
 		
 	}
 	
