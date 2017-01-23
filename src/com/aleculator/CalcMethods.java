@@ -111,6 +111,45 @@ public class CalcMethods {
 		
 	}
 	
+	public double getPounds(String thesePounds){
+		
+		double numPounds = Double.parseDouble(thesePounds);
+		return numPounds;
+		
+	}
+	
+	public double getKilos(String theseKilograms){
+		
+		double numKilos = Double.parseDouble(theseKilograms);
+		return numKilos;
+		
+	}
+	
+	public String weightConversion_Pounds_To_Kilograms(double pounds){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double kilos;
+		String textKilos;
+		kilos = (pounds * .45359237);
+		textKilos = myDF.format(kilos);
+		return textKilos;
+		
+	}
+	
+	public String weightConversion_Kilos_To_Pounds(double kilograms){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double pounds;
+		String textPounds;
+		pounds = (kilograms/.45359237);
+		textPounds = myDF.format(pounds);
+		return textPounds;
+		
+	}
+	
+	//*************************************************************
+	//Liquid Weight Conversion Methods
+	
 	public double getGallons(String gal){
 		
 		double myGallons = Double.parseDouble(gal);

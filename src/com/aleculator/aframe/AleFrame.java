@@ -20,6 +20,8 @@ public class AleFrame extends JFrame implements ActionListener {
 	JPanel panelTwo = new JPanel();
 	JPanel panelThree = new JPanel();
 	JPanel panelFour = new JPanel();
+	JPanel panelFive = new JPanel();
+	JPanel panelSix = new JPanel();
 	final int WIDTH = 550;
 	final int HEIGHT = 550;
 	//****************************************************************
@@ -53,6 +55,12 @@ public class AleFrame extends JFrame implements ActionListener {
 	JLabel grams = new JLabel("Grams: ");
 	JTextField getGrams = new JTextField(10);
 	JButton weightSubmit = new JButton("Calculate!");
+	JLabel poundKiloMess = new JLabel("<html>Enter the measurement you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br></html>");
+	JLabel dryPounds = new JLabel("          Pounds: ");
+	JTextField getDryPounds = new JTextField(10);
+	JLabel kilograms = new JLabel("Kilograms: ");
+	JTextField getKilos = new JTextField(10);
+	JButton bigWeightSubmit = new JButton("Calculate!");
 	//****************************************************************
 	//Liquid Measure Input...
 	JLabel gallonLiterMess = new JLabel("<html>Enter the measurement you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br><br></html>");
@@ -80,6 +88,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JMenuItem abvDo = new JMenuItem("Alcohol Content (ABV)");
 	JMenu dryMeas = new JMenu("Dry Measures");
 	JMenuItem oz2Grams = new JMenuItem("Ounces/Grams");
+	JMenuItem p2kilos = new JMenuItem("Pounds/Kilograms");
 	JMenu liqMeas = new JMenu("Liquid Measures");
 	JMenuItem gal2Lit = new JMenuItem("Gallons/Liters");
 				
@@ -127,6 +136,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		otherCalc.add(tempConversion);
 		otherCalc.add(dryMeas);
 		dryMeas.add(oz2Grams);
+		dryMeas.add(p2kilos);
 		otherCalc.add(liqMeas);
 		liqMeas.add(gal2Lit);
 		otherCalc.add(otherCalcItems);
@@ -172,6 +182,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelOne);
 				khan.remove(panelThree);
 				khan.remove(panelFour);
+				khan.remove(panelFive);
 				
 				;				
 			}
@@ -252,6 +263,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelTwo);
 				khan.remove(panelThree);
 				khan.remove(panelFour);
+				khan.remove(panelFive);
 			}
 		});
 		
@@ -285,6 +297,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelOne);
 				khan.remove(panelTwo);
 				khan.remove(panelFour);
+				khan.remove(panelFive);
 			}
 		});
 
@@ -311,6 +324,62 @@ public class AleFrame extends JFrame implements ActionListener {
 
 		});
 
+		p2kilos.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent abvDoEvent){
+				
+				khan.setLayout(xCards);
+				add("panelFive", panelFive);
+				panelFive.setSize(WIDTH, HEIGHT);
+				panelFive.add(poundKiloMess);
+				panelFive.add(dryPounds);
+				panelFive.add(getDryPounds);
+				panelFive.add(kilograms);
+				panelFive.add(getKilos);
+				panelFive.add(bigWeightSubmit);
+				panelFive.add(myRefresh);
+				panelFive.getRootPane().setDefaultButton(bigWeightSubmit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				//I was able to reuse the object...
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						getDryPounds.setText("");
+						getKilos.setText("");
+			        }
+				});
+
+				//Remove top layer...makes it seem instant...removing the other panels at the same time to allow for choosing whichever method you want first...
+				khan.remove(panelZero);
+				khan.remove(panelOne);
+				khan.remove(panelTwo);
+				khan.remove(panelThree);
+				khan.remove(panelFour);
+			}
+		});
+
+		bigWeightSubmit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent weightConversion_Event) {
+				
+				String pounds = getDryPounds.getText();
+				String kilos = getKilos.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (kilos.isEmpty())
+				{
+					double poundsNum = showMe.getPounds(pounds);
+					kilos = showMe.weightConversion_Pounds_To_Kilograms(poundsNum);
+					getKilos.setText(kilos);
+				}
+				else
+				{
+					double kiloNum = showMe.getKilos(kilos);
+					pounds = showMe.weightConversion_Kilos_To_Pounds(kiloNum);
+					getDryPounds.setText(pounds);
+				}
+
+			}
+
+		});
 		
 		gal2Lit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent abvDoEvent){
@@ -342,6 +411,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelOne);
 				khan.remove(panelTwo);
 				khan.remove(panelThree);
+				khan.remove(panelFive);
 			}
 		});
 		
