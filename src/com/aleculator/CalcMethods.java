@@ -184,4 +184,38 @@ public class CalcMethods {
 		
 	}
 	
+	public double getFluidOz(String FlOz){
+		
+		double myFluidOz = Double.parseDouble(FlOz);
+		return myFluidOz;
+	}
+	
+	public double getMilli(String milli){
+		
+		double myMilli = Double.parseDouble(milli);
+		return myMilli;
+	}
+	
+	public String liquidConvFlOzToML(double fluidOz){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double ml;
+		String textML;
+		ml = (fluidOz * 29.5735);
+		textML = myDF.format(ml);
+		return textML;
+		
+	}
+	
+	public String liquidConvML_To_FlOz(double ml){
+		
+		DecimalFormat myDF = new DecimalFormat("#.##");
+		double fluidOz;
+		String textFluid;
+		fluidOz = (ml/29.5735);
+		textFluid = myDF.format(fluidOz);
+		return textFluid;
+		
+	}
+	
 }

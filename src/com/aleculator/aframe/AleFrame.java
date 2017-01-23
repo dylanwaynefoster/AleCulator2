@@ -69,6 +69,13 @@ public class AleFrame extends JFrame implements ActionListener {
 	JLabel liters = new JLabel("Liters: ");
 	JTextField getLiters = new JTextField(10);
 	JButton wetSubmit = new JButton("Calculate!");
+	
+	JLabel floz2MLMess = new JLabel("<html>Enter the measurement you know into the corresponding box and press Calculate!<br>The other box will give you your result.<br><br></html>");
+	JLabel floz = new JLabel("Fluid Ounces: ");
+	JTextField getFlOz = new JTextField(10);
+	JLabel ml = new JLabel("Milliliters: ");
+	JTextField getML = new JTextField(10);
+	JButton FlMl_Submit = new JButton("Calculate!");
 	//****************************************************************
 	//ABV calculation input...
 	JTextField getOG = new JTextField(10);
@@ -78,6 +85,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JButton pressOG = new JButton("Enter OG");
 	JButton pressSubmit = new JButton("Calculate!");
 	//****************************************************************
+	//Menu Fields...
 	JMenuBar mainBar = new JMenuBar();
 	JMenu file = new JMenu("File");
 	JMenu otherCalc = new JMenu("Calculators");
@@ -91,6 +99,7 @@ public class AleFrame extends JFrame implements ActionListener {
 	JMenuItem p2kilos = new JMenuItem("Pounds/Kilograms");
 	JMenu liqMeas = new JMenu("Liquid Measures");
 	JMenuItem gal2Lit = new JMenuItem("Gallons/Liters");
+	JMenuItem floz2ML = new JMenuItem("Fluid Ounces/Milliliters");
 				
 	//****************************************************************
 	
@@ -139,6 +148,7 @@ public class AleFrame extends JFrame implements ActionListener {
 		dryMeas.add(p2kilos);
 		otherCalc.add(liqMeas);
 		liqMeas.add(gal2Lit);
+		liqMeas.add(floz2ML);
 		otherCalc.add(otherCalcItems);
 				
 		//****************************************************************
@@ -183,6 +193,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelThree);
 				khan.remove(panelFour);
 				khan.remove(panelFive);
+				khan.remove(panelSix);
 				
 				;				
 			}
@@ -264,6 +275,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelThree);
 				khan.remove(panelFour);
 				khan.remove(panelFive);
+				khan.remove(panelSix);
 			}
 		});
 		
@@ -298,6 +310,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelTwo);
 				khan.remove(panelFour);
 				khan.remove(panelFive);
+				khan.remove(panelSix);
 			}
 		});
 
@@ -355,6 +368,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelTwo);
 				khan.remove(panelThree);
 				khan.remove(panelFour);
+				khan.remove(panelSix);
 			}
 		});
 
@@ -412,6 +426,7 @@ public class AleFrame extends JFrame implements ActionListener {
 				khan.remove(panelTwo);
 				khan.remove(panelThree);
 				khan.remove(panelFive);
+				khan.remove(panelSix);
 			}
 		});
 		
@@ -432,6 +447,64 @@ public class AleFrame extends JFrame implements ActionListener {
 					double literNum = showMe.getLit(liters);
 					gallons = showMe.liquidConvLitersToGallons(literNum);
 					getGallons.setText(gallons);
+				}
+
+			}
+
+		});
+
+		floz2ML.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent abvDoEvent){
+				
+				khan.setLayout(xCards);
+				add("panelSix", panelSix);
+				panelSix.setSize(WIDTH, HEIGHT);
+				panelSix.add(floz2MLMess);
+				panelSix.add(floz);
+				panelSix.add(getFlOz);
+				panelSix.add(ml);
+				panelSix.add(getML);
+				panelSix.add(FlMl_Submit);
+				panelSix.add(myRefresh);
+				panelSix.getRootPane().setDefaultButton(FlMl_Submit);
+				
+				//*********************************************************
+				//I know someone is going to give me shit about nesting action listeners...but hey! It works!!!
+				//I was able to reuse the object...
+				myRefresh.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent refreshEvent) {
+						getFlOz.setText("");
+						getML.setText("");
+			        }
+				});
+
+				//Remove top layer...makes it seem instant...removing the other panels at the same time to allow for choosing whichever method you want first...
+				khan.remove(panelZero);
+				khan.remove(panelOne);
+				khan.remove(panelTwo);
+				khan.remove(panelThree);
+				khan.remove(panelFour);
+				khan.remove(panelFive);
+			}
+		});
+
+		FlMl_Submit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent flOzMlWetWeightConversion_Event) {
+				
+				String fluidOunces = getFlOz.getText();
+				String milliliters = getML.getText();
+				CalcMethods showMe = new CalcMethods();
+				if (milliliters.isEmpty())
+				{
+					double fluidOzNum = showMe.getFluidOz(fluidOunces);
+					milliliters = showMe.liquidConvFlOzToML(fluidOzNum);
+					getML.setText(milliliters);
+				}
+				else
+				{
+					double mlNum = showMe.getMilli(milliliters);
+					fluidOunces = showMe.liquidConvML_To_FlOz(mlNum);
+					getFlOz.setText(fluidOunces);
 				}
 
 			}
